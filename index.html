@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Enter Your Details</h1>
+
+        <form id="cv-form">
+            <label for="photo-upload">Upload Photo:</label>
+            <input type="file" id="photo-upload" accept="image/*">
+
+            <label for="name-input">Name:</label>
+            <input type="text" id="name-input" placeholder="Enter your name" required>
+
+            <label for="education-input">Education:</label>
+            <textarea id="education-input" placeholder="Enter your education details (separate by commas)" required></textarea>
+
+            <label for="skills-input">Skills:</label>
+            <textarea id="skills-input" placeholder="Enter your skills (separate by commas)" required></textarea>
+
+            <button type="button" onclick="saveDetails()">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function saveDetails() {
+            const name = document.getElementById('name-input').value;
+            const education = document.getElementById('education-input').value;
+            const skills = document.getElementById('skills-input').value;
+
+            const photoInput = document.getElementById('photo-upload');
+            const file = photoInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    localStorage.setItem('photo', event.target.result);
+                    localStorage.setItem('name', name);
+                    localStorage.setItem('education', education);
+                    localStorage.setItem('skills', skills);
+
+                    // Redirect to the display page
+                    window.location.href = 'display.html';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert('Please upload a photo.');
+            }
+        }
+    </script>
+</body>
+</html>

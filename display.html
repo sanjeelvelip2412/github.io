@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Display</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="cv-container">
+        <div class="photo">
+            <img id="photo" src="" alt="Your Photo">
+        </div>
+        <div class="info">
+            <h1 id="name">Name</h1>
+            <h3>Education</h3>
+            <ul id="education-list"></ul>
+            <h3>Skills</h3>
+            <ul id="skills-list"></ul>
+        </div>
+    </div>
+
+    <script>
+        // Retrieve form data from localStorage
+        const name = localStorage.getItem('name');
+        const education = localStorage.getItem('education')?.split(',') || [];
+        const skills = localStorage.getItem('skills')?.split(',') || [];
+        const photo = localStorage.getItem('photo');
+
+        document.getElementById('name').innerText = name;
+
+        const educationList = document.getElementById('education-list');
+        education.forEach(item => {
+            const li = document.createElement('li');
+            li.innerText = item.trim();
+            educationList.appendChild(li);
+        });
+
+        const skillsList = document.getElementById('skills-list');
+        skills.forEach(skill => {
+            const li = document.createElement('li');
+            li.innerText = skill.trim();
+            skillsList.appendChild(li);
+        });
+
+        if (photo) {
+            document.getElementById('photo').src = photo;
+        }
+    </script>
+</body>
+</html>
